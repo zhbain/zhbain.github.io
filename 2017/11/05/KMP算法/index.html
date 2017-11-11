@@ -322,8 +322,8 @@
       
 
       
-        <h2><span id="前言">前言</span></h2><p>KMP算法是由 Knuth, Morris, Pratt 三人共同设计的，用于在一个字符串中查找一个子串。算法主要思路是利用一个前缀函数（本文为数组f[]）记录子串从开始到当前索引，相同前缀和后缀的最长长度（后文具体讲），这样在字符串中匹配子串过程中避免回溯重复的无用功。本文以<code>abacacedacacedaceabc</code>为字符串 s，<code>acacedace</code>为子串 p，用Python实现代码，对比暴力算法，实现 KMP算法的解释。</p>
-<h2><span id="暴力算法">暴力算法</span></h2><p><em>时间复杂度O(n^2)</em></p>
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>KMP算法是由 Knuth, Morris, Pratt 三人共同设计的，用于在一个字符串中查找一个子串。算法主要思路是利用一个前缀函数（本文为数组f[]）记录子串从开始到当前索引，相同前缀和后缀的最长长度（后文具体讲），这样在字符串中匹配子串过程中避免回溯重复的无用功。本文以<code>abacacedacacedaceabc</code>为字符串 s，<code>acacedace</code>为子串 p，用Python实现代码，对比暴力算法，实现 KMP算法的解释。</p>
+<h2 id="暴力算法"><a href="#暴力算法" class="headerlink" title="暴力算法"></a>暴力算法</h2><p><em>时间复杂度O(n^2)</em></p>
 <p>暴力算法的思路顾名思义相对简单粗暴，即一步一步移动，直到在 s 中找到匹配的子串 p</p>
 <table>
 <thead>
@@ -459,9 +459,9 @@
 </tbody>
 </table>
 <p><em>代码如下</em>：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">naiveMatch</span><span class="params">(s, p)</span>:</span></div><div class="line">    len_s = len(s)</div><div class="line">    len_p = len(p)</div><div class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(len_s):</div><div class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> range(len_p):      <span class="comment"># 为了更好地描述，不采用如 'abc' == 'abc'的方式对比字符串 </span></div><div class="line">            <span class="keyword">if</span> s[i] != p[j]:        <span class="comment"># 有字母不匹配，进入下一轮，即右移一格</span></div><div class="line">                <span class="keyword">break</span></div><div class="line">            i += <span class="number">1</span>         </div><div class="line">        <span class="keyword">else</span>:</div><div class="line">            <span class="keyword">return</span> (i - len_p)      <span class="comment"># 匹配完成，返回 s 匹配 p 的首字母索引</span></div></pre></td></tr></table></figure></p>
-<h2><span id="kmp-算法">KMP 算法</span></h2><p><em>时间复杂度O(n)</em></p>
+<h2 id="KMP-算法"><a href="#KMP-算法" class="headerlink" title="KMP 算法"></a>KMP 算法</h2><p><em>时间复杂度O(n)</em></p>
 <p>KMP 分两步：1. 生成前缀数组，2. 匹配子串<br></p>
-<h3><span id="生成前缀数组-f">生成前缀数组 f</span></h3><p><strong>字符串前缀和后缀说明</strong>：前缀即除末字母外，从首字母开始的子串；后缀即除首字母外，任意<br>位置到末字母的子串。例如<code>abc</code>前缀有<code>a</code>, <code>ab</code>,后缀有 <code>bc</code>， <code>c</code>；<code>bike</code>前缀有<code>b</code>, <code>bi</code>, <code>bik</code>，<br>后缀有<code>ike</code>, <code>ke</code>, <code>e</code>。<br><br><strong>前缀数组 f 说明</strong>：<br><br>f 数组的索引对应子串 p 的索引，记录子串从开始到当前索引，相同前缀和后缀的最长长度<br><br>例如 p 为 <code>ababcabab</code>的情况对应如下：<br></p>
+<h3 id="生成前缀数组-f"><a href="#生成前缀数组-f" class="headerlink" title="生成前缀数组 f"></a>生成前缀数组 f</h3><p><strong>字符串前缀和后缀说明</strong>：前缀即除末字母外，从首字母开始的子串；后缀即除首字母外，任意<br>位置到末字母的子串。例如<code>abc</code>前缀有<code>a</code>, <code>ab</code>,后缀有 <code>bc</code>， <code>c</code>；<code>bike</code>前缀有<code>b</code>, <code>bi</code>, <code>bik</code>，<br>后缀有<code>ike</code>, <code>ke</code>, <code>e</code>。<br><br><strong>前缀数组 f 说明</strong>：<br><br>f 数组的索引对应子串 p 的索引，记录子串从开始到当前索引，相同前缀和后缀的最长长度<br><br>例如 p 为 <code>ababcabab</code>的情况对应如下：<br></p>
 <table>
 <thead>
 <tr>
@@ -494,7 +494,7 @@
 </table>
 <p>设 i 为索引, c 为从首字母到当前位置的子串<br><br>i=0, c=’a’，没有相同的前缀和后缀 ==&gt; f[0] = 0<br><br>i=1, c=’ab’，没有相同的前缀和后缀 ==&gt; f[1] = 0<br><br>i=2, c=’aba’，有长度为1的前缀和后缀’a’ ==&gt; f[2] = 1<br><br>i=3, c=’abab’，有长度为2的前缀和后缀’ab’ ==&gt; f[3] = 2<br><br>i=4, c=’ababc’，没有相同的前缀和后缀 ==&gt; f[4] = 0<br><br>i=5, c=’ababca’，有长度为1的前缀和后缀’a’ ==&gt; f[5] = 1<br><br>i=6, c=’ababcab’，有长度为2的前缀和后缀’ab’ ==&gt; f[6] = 2<br><br>i=7, c=’ababcaba’，有长度为3的前缀和后缀’aba’ ==&gt; f[7] = 3<br><br>i=8, c=’ababcabab’，有长度为4的前缀和后缀’abab’ ==&gt; f[8] = 4<br></p>
 <p><em>代码如下</em>：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">getPreArray</span><span class="params">(p)</span>:</span></div><div class="line">    len_p = len(p)</div><div class="line">    f = [<span class="number">0</span>] * len_p</div><div class="line">    t = <span class="number">0</span></div><div class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>, len_p):</div><div class="line">        <span class="keyword">while</span> t &gt; <span class="number">0</span> <span class="keyword">and</span> p[t] != p[i]:    <span class="comment"># 不相等则跳转到更短的前缀</span></div><div class="line">            t = f[t<span class="number">-1</span>]</div><div class="line">        <span class="keyword">if</span> p[t] == p[i]:                 <span class="comment"># 相等则延长相同前缀和后缀的长度</span></div><div class="line">            t += <span class="number">1</span></div><div class="line">        f[i] = t</div><div class="line"></div><div class="line">    <span class="keyword">return</span> f</div></pre></td></tr></table></figure></p>
-<h3><span id="匹配子串-p">匹配子串 p</span></h3><p>s = ‘abacacedacacedaceabc’<br><br>p = ‘acacedace’<br><br>对应前缀数组 f 如下：<br></p>
+<h3 id="匹配子串-p"><a href="#匹配子串-p" class="headerlink" title="匹配子串 p"></a>匹配子串 p</h3><p>s = ‘abacacedacacedaceabc’<br><br>p = ‘acacedace’<br><br>对应前缀数组 f 如下：<br></p>
 <table>
 <thead>
 <tr>
@@ -662,12 +662,12 @@
 </tbody>
 </table>
 <p><em>代码如下</em>：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">kmpMatch</span><span class="params">(s, p, f)</span>:</span></div><div class="line">    len_s = len(s)</div><div class="line">    len_p = len(p)</div><div class="line">    t = <span class="number">0</span></div><div class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>, len_s):</div><div class="line">        <span class="keyword">while</span> t &gt; <span class="number">0</span> <span class="keyword">and</span> p[t] != s[i]:</div><div class="line">            t = f[t<span class="number">-1</span>]</div><div class="line">        <span class="keyword">if</span> p[t] == s[i]:           <span class="comment"># 相等则进行下一个字母的比较</span></div><div class="line">            t += <span class="number">1</span></div><div class="line">        <span class="keyword">if</span> t == len_p:</div><div class="line">            <span class="keyword">return</span> (i+<span class="number">1</span>-len_p)     <span class="comment"># 匹配完成，返回 s 匹配 p 的首字母索引</span></div></pre></td></tr></table></figure></p>
-<h2><span id="总结">总结</span></h2><ul>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ul>
 <li>对比暴力算法，KMP 算法主要利用前缀数组，在失配时实现跳转，因为 p 一步一步右移如果有用的话，则在前缀数组会标明，即 t = f[t-1] = t-1，所以KMP算法取代暴力算法。</li>
 <li>KMP算法开始学时很难，找资料看也很难看懂，本文主要解释 KMP 的重点，一旦掌握了要点，你会觉得 KMP算法太容易了。</li>
 <li>如果读了本文还不够清楚，建议看视频教程，能更好地理解算法流程。</li>
 </ul>
-<h2><span id="参考">参考</span></h2><ul>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
 <li><p><a href="https://www.youtube.com/watch?v=GTJr8OvyEVQ" target="_blank" rel="external">油管视频 Knuth–Morris–Pratt(KMP) Pattern Matching(Substring search)</a></p>
 </li>
 <li><p>算法导论第3版——32.4 Knuth-Morris-Pratt 算法</p>
@@ -827,7 +827,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">2.</span> <span class="nav-text">暴力算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">3.</span> <span class="nav-text">KMP 算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">3.1.</span> <span class="nav-text">生成前缀数组 f</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">3.2.</span> <span class="nav-text">匹配子串 p</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">5.</span> <span class="nav-text">参考</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#暴力算法"><span class="nav-number">2.</span> <span class="nav-text">暴力算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#KMP-算法"><span class="nav-number">3.</span> <span class="nav-text">KMP 算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#生成前缀数组-f"><span class="nav-number">3.1.</span> <span class="nav-text">生成前缀数组 f</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#匹配子串-p"><span class="nav-number">3.2.</span> <span class="nav-text">匹配子串 p</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">5.</span> <span class="nav-text">参考</span></a></li></ol></div>
             
 
           </div>
